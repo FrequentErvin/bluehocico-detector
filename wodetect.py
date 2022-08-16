@@ -20,15 +20,19 @@ from utils.torch_utils import select_device, load_classifier, time_synchronized,
 # img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
 # img = np.ascontiguousarray(img)
 # pred = model.detect(img, imc)
-def detect(source):
-    print("hi")
+USERNAME = "admin"
+PASSWORD = "A1s2d3f4"
+
+RTSP_URL = f"rtsp://{USERNAME}:{PASSWORD}@izvansvemirac.ddnsfree.com:554/ISAPI/Streaming/Channels/101"
+
+def detect(source, dirname):
     weights, view_img, imgsz, trace = 'best.pt', False, 640, False
     save_img = True  # save inference images
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://', 'https://'))
 
     # Directories
-    save_dir = Path(increment_path(Path('runs/detect') / 'exp', exist_ok=True))  # increment run
+    save_dir = Path(increment_path(Path('runs/detect') / ('exp' + dirname), exist_ok=True))  # increment run
     (save_dir / 'labels').mkdir(parents=True, exist_ok=True)  # make dir
 
     # Initialize
@@ -120,7 +124,7 @@ def detect(source):
                     cv2image = cv2.cvtColor(im0, cv2.COLOR_BGR2RGB)
                     PILimg = Image.fromarray(cv2image)
                     croppedimg = PILimg.crop((int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])))
-                    croppedimg.show()
+                    # croppedimg.show()
                     croppedimg.save(save_path, 'JPEG')
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
@@ -156,8 +160,9 @@ def detect(source):
                     vid_writer.write(im0)
 
     print(f'Done. ({time.time() - t0:.3f}s)')
-
-directory = 'C:/Users/Bacic/Desktop/exported_sorted'
-for dirname in os.listdir(directory):
-    print(dirname)
-detect('exported_sorted/0706')
+detect('image.jpeg', 'bigimage')
+# directory = 'C:/Users/Bacic/Desktop/exported_sorted'
+# for dirname in os.listdir(directory):
+#     if dirname != '.DS_Store':
+#         print(dirname)
+#         detect('exported_sorted/'+dirname, dirname)
