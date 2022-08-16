@@ -14,11 +14,6 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
-USERNAME = "admin"
-PASSWORD = "A1s2d3f4"
-
-RTSP_URL = f"rtsp://{USERNAME}:{PASSWORD}@izvansvemirac.ddnsfree.com:554/ISAPI/Streaming/Channels/101"
-
 def detect(save_img=False):
     source, weights, view_img, save_txt, imgsz, trace = RTSP_URL, 'best.pt', opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
     save_img = False  # save inference images
