@@ -20,10 +20,7 @@ from utils.torch_utils import select_device, load_classifier, time_synchronized,
 # img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
 # img = np.ascontiguousarray(img)
 # pred = model.detect(img, imc)
-USERNAME = "admin"
-PASSWORD = "A1s2d3f4"
 
-RTSP_URL = f"rtsp://{USERNAME}:{PASSWORD}@izvansvemirac.ddnsfree.com:554/ISAPI/Streaming/Channels/101"
 
 def detect(source, dirname):
     weights, view_img, imgsz, trace = 'best.pt', False, 640, False
